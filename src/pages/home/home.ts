@@ -14,16 +14,19 @@ export class HomePage {
   creds : CredenciaisDTO = {
     email: "",
     senha: ""
-  }
+  };
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService) {
+  constructor(
+    public navCtrl: NavController, 
+    public menu: MenuController,
+    public auth: AuthService) {
 
   }
 
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
-
+    
   ionViewDidLeave() {
     this.menu.swipeEnable(true);
   }
@@ -31,7 +34,7 @@ export class HomePage {
   ionViewDidEnter() {
     this.auth.refreshToken()
       .subscribe(response => {
-        this.auth.successfullLogin(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
       error => {});  
@@ -39,10 +42,10 @@ export class HomePage {
 
   login() {
     this.auth.authenticate(this.creds)
-    .subscribe(response => {
-      this.auth.successfullLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-    error => {});
-  }  
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});    
+  }
 }

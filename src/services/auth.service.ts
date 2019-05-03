@@ -11,19 +11,17 @@ export class AuthService {
 
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, public storage: StorageService ) {
-
+    constructor(public http: HttpClient, public storage: StorageService) {
     }
 
     authenticate(creds : CredenciaisDTO) {
-
         return this.http.post(
             `${API_CONFIG.baseUrl}/login`, 
-            creds, 
+            creds,
             {
                 observe: 'response',
                 responseType: 'text'
-            })
+            });
     }
 
     refreshToken() {
@@ -36,7 +34,7 @@ export class AuthService {
             });
     }
 
-    successfullLogin(authorizationValue : string) {
+    successfulLogin(authorizationValue : string) {
         let tok = authorizationValue.substring(7);
         let user : LocalUser = {
             token: tok,
